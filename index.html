@@ -11,6 +11,242 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<style>
+  :root{
+    --bg:            #fbf9fd;
+    --bg-panel:      #ffffff;
+    --bg-panel-2:    #f4effa;
+    --line:          #e3d9f0;
+    --text:          #2c2438;
+    --text-dim:      #7c7290;
+    --mono:          'JetBrains Mono', monospace;
+    --sans:          'Inter', sans-serif;
+    --violet:        #6a4c93;
+    --violet-deep:   #4c2f7a;
+    --lilac:         #9b6bd6;
+    --amber:         #c98a2c;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:var(--violet-deep); text-decoration:none; border-bottom:1px solid rgba(106,76,147,0.35); }
+  a:hover{ border-bottom-color:var(--violet-deep); }
+
+  .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    border-bottom:1px solid var(--line);
+    padding:18px 0;
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+    color:var(--violet-deep);
+  }
+  .brand span{ color:var(--lilac); }
+  .nav-tag{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--text-dim);
+  }
+  .nav-tag a.crumb{
+    color:var(--text-dim);
+    border-bottom:1px solid transparent;
+  }
+  .nav-tag a.crumb:hover{
+    color:var(--violet-deep);
+    border-bottom-color:var(--violet-deep);
+  }
+
+  /* ---------- HERO / CODE WINDOW ---------- */
+  header.hero{ padding:56px 0 40px; }
+
+  .editor{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(106,76,147,0.12);
+  }
+  .editor-titlebar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    background:var(--bg-panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.r{ background:#e8a3b0; }
+  .dot.y{ background:#f0cf8a; }
+  .dot.g{ background:#a8d5b0; }
+  .editor-filename{
+    margin-left:8px;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--text-dim);
+  }
+  .editor-body{
+    padding:24px 20px 28px;
+    font-family:var(--mono);
+    font-size:0.92rem;
+    overflow-x:auto;
+    background:var(--bg-panel);
+  }
+  .editor-body .ln{ color:#c9bde0; user-select:none; display:inline-block; width:22px; }
+  .editor-body .kw{ color:#b0559c; }
+  .editor-body .key{ color:var(--violet-deep); }
+  .editor-body .str{ color:var(--amber); }
+  .editor-body .com{ color:#a79bbd; }
+  .editor-body pre{ margin:0; white-space:pre-wrap; }
+
+  h1.name{
+    font-family:var(--mono);
+    font-size:clamp(1.7rem, 4vw, 2.3rem);
+    font-weight:800;
+    margin:28px 0 6px;
+    letter-spacing:-0.01em;
+    color:var(--violet-deep);
+  }
+  .role{
+    color:var(--text-dim);
+    font-size:1.02rem;
+    margin-bottom:0;
+  }
+  .role strong{ color:var(--text); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:36px 0; border-top:1px solid var(--line); }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--violet);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{ content:"// "; color:#c9bde0; }
+
+  p{ font-size:1.03rem; color:var(--text); margin:0 0 16px; }
+  p.dim{ color:var(--text-dim); }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ list-style:none; margin:0; padding:0; }
+  .timeline li{
+    display:grid;
+    grid-template-columns:112px 1fr;
+    gap:18px;
+    padding:14px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .timeline li:last-child{ border-bottom:none; }
+  .t-date{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    color:var(--amber);
+    padding-top:2px;
+  }
+  .t-body strong{ display:block; margin-bottom:2px; color:var(--text); }
+  .t-body span{ color:var(--text-dim); font-size:0.96rem; }
+
+  /* ---------- CARDS ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  @media (max-width:600px){ .grid{ grid-template-columns:1fr; } }
+
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 20px;
+    box-shadow:0 2px 8px rgba(106,76,147,0.05);
+  }
+  .card h3{
+    font-family:var(--mono);
+    font-size:0.95rem;
+    margin:0 0 10px;
+    color:var(--violet-deep);
+  }
+  .card ul{ margin:0; padding-left:18px; color:var(--text-dim); font-size:0.94rem; }
+  .card li{ margin-bottom:6px; }
+
+  /* ---------- PROJECTS ---------- */
+  .project{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px 22px;
+    margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(106,76,147,0.05);
+  }
+  .project-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .project-head h3{ font-family:var(--mono); font-size:1rem; margin:0; color:var(--violet-deep); }
+  .badge{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    padding:3px 9px;
+    border-radius:20px;
+    background:rgba(106,76,147,0.1);
+    color:var(--violet-deep);
+    white-space:nowrap;
+  }
+  .badge.live{ background:rgba(201,138,44,0.14); color:var(--amber); }
+
+  /* ---------- QUOTE BLOCK ---------- */
+  .quote-block{
+    margin:0;
+    background:var(--bg-panel-2);
+    border-left:4px solid var(--violet);
+    border-radius:0 10px 10px 0;
+    padding:22px 24px;
+  }
+  .quote-block p{
+    font-size:1.02rem;
+    font-style:italic;
+    color:var(--text);
+    margin:0 0 14px;
+  }
+  .quote-block p:last-of-type{ margin-bottom:10px; }
+  .quote-block cite{
+    display:block;
+    font-family:var(--mono);
+    font-style:normal;
+    font-size:0.82rem;
+    color:var(--text-dim);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:32px 0 48px;
+    text-align:center;
+    color:var(--text-dim);
+    font-size:0.85rem;
+    font-family:var(--mono);
+  }
+</style>
 </head>
 
 <body>
@@ -18,7 +254,7 @@
 <nav>
   <div class="wrap">
     <div class="brand">meisophant<span>.</span>digital</div>
-    <div class="nav-tag"><a href="https://ceo-aeo.meisophant.name.ng/future-of-tech" class="crumb">Future Of Tech</a> / <a href="https://ceo-aeo.meisophant.name.ng/achievements/" class="crumb">achievements</a> / <a href="https://ceo-aeo.meisophant.name.ng/" class="crumb">ceo-aeo</a></div>
+
   </div>
 </nav>
 
@@ -96,7 +332,40 @@
   </section>
 
   <section>
-    <div class="eyebrow">what he builds</div>
+    <div class="eyebrow">achievements</div>
+    <div class="grid">
+      <div class="card">
+        <h3>Recognition</h3>
+        <ul>
+          <li>Named CEO at 11, cited as one of the youngest active CEOs in tech</li>
+          <li>Listed among a "Top 15 world's youngest CEOs" roundup</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Milestones</h3>
+        <ul>
+          <li>Founded Meisophant Digital Services, July 28, 2024</li>
+          <li>Relaunched the site Nov 2, 2025 — indexed by Google that same day</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Building</h3>
+        <ul>
+          <li>Shifted Meisophant from a gaming idea (age 9) to a developer-tools company (age 10)</li>
+          <li>Prepping TekSpot and further tools for release through Meisophant Developers</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Base</h3>
+        <ul>
+          <li>Operating out of Lagos, Nigeria</li>
+          <li>Running the company alongside school</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
     <div class="project">
       <div class="project-head">
         <h3>TekSpot</h3>
@@ -155,6 +424,19 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">future of tech - a statement about tech</div>
+    <p class="dim">
+      Beyond the product work, Emmanuel has laid out his own view of where technology — and his place in
+      it — is headed.
+    </p>
+    <blockquote class="quote-block">
+      <p>"Technology is more than just code or gaming—it is the ultimate tool for empowerment. My dream for the future is to build a world where every developer, regardless of their age or background, has access to the tools they need to turn a spark of an idea into a global reality.</p>
+      <p>At Meisophant, we aren't just creating software; we are building a gateway for the next generation of innovators. I want technology to be the bridge that connects raw talent with limitless opportunity, proving that you are never too young to lead or too small to make an impact. My mission is to keep pushing the boundaries of what's possible, ensuring that the digital tools of tomorrow are built with purpose, passion, and the courage to break every record."</p>
+      <cite>— Adewale Emmanuel Oluwajomiloju, CEO of Meisophant Digital Services</cite>
+    </blockquote>
   </section>
 
 </div>
